@@ -13,25 +13,25 @@
         android:text="@string/qual_o_valor_em_real" />
 
     <EditText
-        android:id="@+id/editValor"
+        android:id="@+id/edit_valor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="" />
 
     <TextView
-        android:id="@+id/textDolar"
+        android:id="@+id/text_dolar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/qual_o_valor_em_dolar" />
 
     <TextView
-        android:id="@+id/textEuro"
+        android:id="@+id/text_euro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/qual_o_valor_em_euro" />
 
     <Button
-        android:id="@+id/btnCalcular"
+        android:id="@+id/button_calcular"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="CALCULAR" />
