@@ -7,33 +7,65 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <TextView
+    <TextView android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/valor_dolar_hoje"
+     />
+
+    <EditText android:id="@+id/edit_valor_dolar_hoje"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/qual_o_valor_em_real" />
+        android:text="0.00"
+     />
 
-    <EditText
-        android:id="@+id/edit_valor"
+    <TextView android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/valor_euro_hoje"
+     />
+
+    <EditText android:id="@+id/edit_valor_euro_hoje"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="" />
+        android:text="0.00"
+     />
 
-    <TextView
-        android:id="@+id/text_dolar"
+    <TextView android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/qual_o_valor_em_real"
+     />
+
+    <EditText android:id="@+id/edit_valor_real"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/qual_o_valor_em_dolar" />
+        android:text="0.00"
+    />
 
-    <TextView
-        android:id="@+id/text_euro"
+    <TextView android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/dolar_convertido"
+     />
+
+    <TextView android:id="@+id/text_dolar_convertido"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/qual_o_valor_em_euro" />
+        android:text="@string/valor_dolar_convertido"
+     />
 
-    <Button
-        android:id="@+id/button_calcular"
+    <TextView android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/euro_convertido"
+     />
+
+    <TextView android:id="@+id/text_euro_convertido"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/valor_dolar_convertido"
+    />
+
+    <Button android:id="@+id/button_calcular"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="CALCULAR" />
+        android:text="CALCULAR"
+    />
 
 </LinearLayout>
