@@ -11,30 +11,36 @@
         android:gravity="right"
         android:layout_height="wrap_content"
         android:text="@string/valor_dolar_hoje"
+        android:textSize="18sp"
      />
 
     <EditText
         android:id="@+id/edit_valor_dolar_hoje"
-        android:layout_width="wrap_content"
+        android:layout_width="160dp"
+        android:inputType="numberSigned"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
-        android:text="0.00" />
+        android:text="" />
 
     <TextView android:layout_width="match_parent"
         android:gravity="right"
+        android:layout_marginTop="10sp"
         android:layout_height="wrap_content"
         android:text="@string/valor_euro_hoje"
+        android:textSize="18sp"
      />
 
-    <EditText android:id="@+id/edit_valor_euro_hoje"
-        android:layout_width="wrap_content"
-        android:layout_gravity="right"
+    <EditText
+        android:id="@+id/edit_valor_euro_hoje"
+        android:inputType="numberSigned"
+        android:layout_width="160dp"
         android:layout_height="wrap_content"
-        android:text="0.00"
-     />
+        android:layout_gravity="right"
+        android:text="" />
 
     <TextView android:layout_width="match_parent"
         android:gravity="center"
+        android:layout_marginTop="30dp"
         android:layout_height="wrap_content"
         android:text="@string/qual_o_valor_em_real"
         android:textSize="25sp"
@@ -42,39 +48,60 @@
 
     <EditText
         android:id="@+id/edit_valor_real"
-        android:layout_width="wrap_content"
+        android:inputType="numberSigned"
+        android:layout_width="160dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="0.00" />
+        android:text="" />
 
-    <TextView android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/button_calcular"
+        android:layout_width="match_parent"
+        android:layout_marginTop="30dp"
         android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:text="CALCULAR"
+        android:textSize="20sp"
+        android:textColor="@color/colorLight" />
+
+    <TextView android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
         android:text="@string/dolar_convertido"
-     />
+        android:textSize="20sp"
+        />
 
     <TextView android:id="@+id/text_dolar_convertido"
         android:layout_width="wrap_content"
+        android:layout_gravity=""
         android:layout_height="wrap_content"
         android:text="@string/valor_dolar_convertido"
-     />
+        android:textSize="20sp"
+        />
 
-    <TextView android:layout_width="wrap_content"
+    <TextView android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
         android:layout_height="wrap_content"
         android:text="@string/euro_convertido"
-     />
+        android:textSize="20sp"
+        />
 
     <TextView android:id="@+id/text_euro_convertido"
         android:layout_width="wrap_content"
+        android:layout_marginTop="10dp"
         android:layout_height="wrap_content"
         android:text="@string/valor_dolar_convertido"
-    />
+        android:textSize="20sp"
+        />
 
-    <Button android:id="@+id/button_calcular"
+    <Button
+        android:id="@+id/button_limpar"
         android:layout_width="match_parent"
+        android:layout_marginTop="30dp"
         android:layout_height="wrap_content"
-        android:text="CALCULAR"
-        android:background="@color/colorAccent"
-        android:textColor="@color/colorLight"
-    />
+        android:background="@color/colorSecundaryText"
+        android:text="LIMPAR"
+        android:textSize="20sp"
+        android:textColor="@color/colorLight" />
 
 </LinearLayout>
