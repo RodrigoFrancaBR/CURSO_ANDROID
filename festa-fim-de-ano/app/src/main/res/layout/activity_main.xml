@@ -6,10 +6,10 @@
     android:layout_height="match_parent"
     android:background="@drawable/original"
     android:padding="8dp"
-    tools:context=".MainActivity">
+    tools:context=".view.MainActivity">
 
     <TextView
-        android:id="@+id/text_data"
+        android:id="@+id/text_data_atual"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -21,7 +21,7 @@
         android:id="@+id/view_line"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_below="@+id/text_data"
+        android:layout_below="@+id/text_data_atual"
         android:background="@color/colorPrimary"
         />
 
@@ -42,7 +42,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="320 dias"
+        android:text=""
         android:textSize="30sp"
         />
 

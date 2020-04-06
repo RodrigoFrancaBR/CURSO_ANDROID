@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".DetalheActivity">
+    tools:context=".view.DetalheActivity">
 
     <TextView
         android:id="@+id/text_label_voce_vai_participar"
