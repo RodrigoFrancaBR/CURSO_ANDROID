@@ -1,7 +1,21 @@
 <resources>
     <string name="app_name">ConversorDeMoedas</string>
-    <string name="qual_o_valor_em_real">Qual o valor em real?!</string>
-    <string name="qual_o_valor_em_dolar">Qual o valor em dolar</string>
-    <string name="qual_o_valor_em_euro">Qual o valor em euro</string>
-    <string name="clicou">Clicou, </string>
+
+    <string name="valor_dolar_hoje">Qual o valor do dolar hoje? </string>
+    <string name="valor_euro_hoje">Qual o valor do euro hoje?</string>
+
+    <string name="qual_o_valor_em_real">Qual o valor em real, que será convertido?!</string>
+
+    <string name="dolar_convertido">Valor convertido em dolar</string>
+    <string name="euro_convertido">Valor convertido em euro</string>
+
+    <string name="valor_dolar_convertido">0.00</string>
+    <string name="valor_euro_convertido">0.00</string>
+
+    <string name="campo_obrigatorio">Campo com preenchimento obrigatório </string>
+
+    <string name="dolar_ou_euro_obrigatorio">Favor preencher um dos campos valor do Dolar/Euro para hoje </string>
+    <string name="valor_real">Campo Valor em real que será convertido não foi preenchido </string>
+
+
 </resources>

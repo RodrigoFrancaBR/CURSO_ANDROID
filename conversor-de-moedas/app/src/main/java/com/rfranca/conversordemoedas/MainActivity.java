@@ -18,46 +18,105 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         buscarElementosDaInterface();
         this.mViewHolder.buttonCalcular.setOnClickListener(this);
-        // onclick();
-        // exibirHelloWorld();
     }
-
-//    public void onclick(View view) {
-//    }
-
-//    private void onclick() {
-//        this.mViewHolder.buttonCalcular.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//            }
-//        });
-//    }
 
     @Override
     public void onClick(View v) {
-        this.mViewHolder.editValue.setText(getString(R.string.clicou)+ mViewHolder.index + " vez.");
-        Toast.makeText(this, getString(R.string.clicou) + mViewHolder.index + " vez.", Toast.LENGTH_LONG).show();
-        mViewHolder.index +=1;
+        if (v.getId() == R.id.button_calcular) {
+
+            if (!isValidoValorDigitado(mViewHolder.valorDolarHoje()) && !isValidoValorDigitado(mViewHolder.valorEuroHoje())) {
+                Toast.makeText(this, getString(R.string.dolar_ou_euro_obrigatorio), Toast.LENGTH_LONG).show();
+            }
+
+            if (!isValidoValorDigitado(mViewHolder.valorReal())) {
+                Toast.makeText(this, getString(R.string.campo_obrigatorio) + " Valor em real ", Toast.LENGTH_LONG).show();
+            }
+
+            if (isValidoValorDigitado(mViewHolder.valorDolarHoje())) {
+                double dolarConvertido = converterDePara(Double.parseDouble(mViewHolder.valorReal()), Double.parseDouble(mViewHolder.valorDolarHoje()));
+                mViewHolder.dolarConvertido(String.valueOf(dolarConvertido));
+            }
+
+            if (isValidoValorDigitado(mViewHolder.valorEuroHoje())) {
+                double euroConvertido = converterDePara(Double.parseDouble(mViewHolder.valorReal()), Double.parseDouble(mViewHolder.valorEuroHoje()));
+                mViewHolder.dolarConvertido(String.valueOf(euroConvertido));
+            }
+        }
+    }
+
+    private boolean isValidoValorDigitado(String valorDigitado) {
+        return valorDigitado.equals("") ? false : true;
+    }
+
+    private double converterDePara(double valorReal, double outroValor) {
+        return valorReal / outroValor;
+    }
+
+    private boolean isValidoQualValorDoDolarOuEuroHoje() {
+        return mViewHolder.valorDolarHoje().equals("") && mViewHolder.valorEuroHoje().equals("") ? false : true;
+    }
+
+    private boolean isValidoValorEmReal() {
+        return mViewHolder.valorReal().equals("") ? false : true;
     }
 
     private void buscarElementosDaInterface() {
-        this.mViewHolder.editValue = findViewById(R.id.edit_valor);
-        this.mViewHolder.textDolar = findViewById(R.id.text_dolar);
-        this.mViewHolder.textEuro = findViewById(R.id.text_euro);
+        this.mViewHolder.valorDolarHoje = findViewById(R.id.edit_valor_dolar_hoje);
+        this.mViewHolder.valorDolarHoje = findViewById(R.id.edit_valor_euro_hoje);
+        this.mViewHolder.valorReal = findViewById(R.id.edit_valor_real);
+        this.mViewHolder.dolarConvertido = findViewById(R.id.text_dolar_convertido);
+        this.mViewHolder.euroConvertido = findViewById(R.id.text_euro_convertido);
         this.mViewHolder.buttonCalcular = findViewById(R.id.button_calcular);
     }
 
-    private void exibirHelloWorld() {
-        this.mViewHolder.editValue.setText("Hello World");
-    }
-
-
     private static class ViewHolder {
-        int index = 0;
-        EditText editValue;
-        TextView textEuro;
-        TextView textDolar;
+        EditText valorDolarHoje;
+        EditText valorEuroHoje;
+        EditText valorReal;
+        TextView dolarConvertido;
+        TextView euroConvertido;
         Button buttonCalcular;
+
+        public String valorDolarHoje() {
+            return this.valorDolarHoje.getText().toString();
+        }
+
+        public void valorDolarHoje(EditText valorDolarHoje) {
+            this.valorDolarHoje = valorDolarHoje;
+        }
+
+        public String valorEuroHoje() {
+            return valorEuroHoje.getText().toString();
+        }
+
+        public void valorEuroHoje(EditText valorEuroHoje) {
+            this.valorEuroHoje = valorEuroHoje;
+        }
+
+        public String valorReal() {
+            return valorReal.getText().toString();
+        }
+
+        public void valorReal(EditText valorReal) {
+            this.valorReal = valorReal;
+        }
+
+        public String dolarConvertido() {
+            return dolarConvertido.getText().toString();
+        }
+
+        public void dolarConvertido(String dolarConvertido) {
+            this.dolarConvertido.setText(dolarConvertido);
+        }
+
+        public String euroConvertido() {
+            return euroConvertido.getText().toString();
+        }
+
+        public void euroConvertido(TextView euroConvertido) {
+            this.euroConvertido = euroConvertido;
+        }
+
     }
+
 }
