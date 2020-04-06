@@ -8,7 +8,7 @@
     tools:context=".DetalheActivity">
 
     <TextView
-        android:id="@+id/label_voce_vai_participar"
+        android:id="@+id/text_label_voce_vai_participar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -17,13 +17,14 @@
         />
 
     <View
-        android:id="@+id/line"
+        android:id="@+id/view_line"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/colorPrimary"
         />
 
     <CheckBox
+        android:id="@+id/checkbox_voce_vai_participar"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_weight="1"

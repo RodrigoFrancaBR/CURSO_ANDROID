@@ -9,7 +9,7 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/data"
+        android:id="@+id/text_data"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -18,16 +18,16 @@
         />
 
     <View
-        android:id="@+id/line"
+        android:id="@+id/view_line"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_below="@+id/data"
+        android:layout_below="@+id/text_data"
         android:background="@color/colorPrimary"
         />
 
     <TextView
-        android:id="@+id/label_dias_restantes"
-        android:layout_below="@+id/line"
+        android:id="@+id/text_label_dias_restantes"
+        android:layout_below="@+id/view_line"
         android:layout_marginTop="160dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -38,7 +38,7 @@
 
     <TextView
         android:id="@+id/dias_restantes"
-        android:layout_below="@+id/label_dias_restantes"
+        android:layout_below="@+id/text_label_dias_restantes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -47,6 +47,7 @@
         />
 
     <Button
+        android:id="@+id/button_opcao"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
