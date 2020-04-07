@@ -10,6 +10,8 @@ import android.widget.CalendarView;
 import android.widget.TextView;
 
 import com.rfranca.festafimdeano.R;
+import com.rfranca.festafimdeano.constantes.FimDeAnoConst;
+import com.rfranca.festafimdeano.data.SecurityPreferences;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -18,6 +20,7 @@ import java.util.Date;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ViewHolder mViewHolder = new ViewHolder();
+    SecurityPreferences mSecurityPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,8 +28,37 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         buscarElementosDaInterface();
         mViewHolder.textDataAtual.setText(obterDataAtualNoFormato("dd/MM/yyyy"));
-        mViewHolder.textDiasRestantes.setText(String.valueOf(obterDiasFaltando()));
+        mViewHolder.textDiasRestantes.setText(String.valueOf(obterDiasFaltando() + " " + getString(R.string.dias)));
+        mSecurityPreferences = new SecurityPreferences(this);
         this.mViewHolder.buttonOpcao.setOnClickListener(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        estaConfirmado();
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.button_opcao) {
+            Intent intent = new Intent(this, DetalheActivity.class);
+            String estaConfirmado = mSecurityPreferences.getString(FimDeAnoConst.PRESENCA_CONFIRMADA);
+            intent.putExtra(FimDeAnoConst.PRESENCA_CONFIRMADA,estaConfirmado);
+            startActivity(intent);
+        }
+    }
+
+    private void estaConfirmado() {
+
+        String estaConfirmado = mSecurityPreferences.getString(FimDeAnoConst.PRESENCA_CONFIRMADA);
+        if (estaConfirmado.equals("")) {
+            mViewHolder.buttonOpcao.setText(getString(R.string.nao_confirmado));
+        } else if (estaConfirmado.equals(FimDeAnoConst.SIM)) {
+            mViewHolder.buttonOpcao.setText(getString(R.string.sim));
+        } else {
+            mViewHolder.buttonOpcao.setText(getString(R.string.nao));
+        }
     }
 
     private int obterDiasFaltando() {
@@ -40,19 +72,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return simpleDateFormat.format(date);
     }
 
-
     private void buscarElementosDaInterface() {
         this.mViewHolder.textDataAtual = findViewById(R.id.text_data_atual);
         this.mViewHolder.textDiasRestantes = findViewById(R.id.dias_restantes);
         this.mViewHolder.buttonOpcao = findViewById(R.id.button_opcao);
-    }
-
-    @Override
-    public void onClick(View v) {
-        if (v.getId() == R.id.button_opcao) {
-            Intent intent = new Intent(this, DetalheActivity.class);
-            startActivity(intent);
-        }
     }
 
     private static class ViewHolder {
