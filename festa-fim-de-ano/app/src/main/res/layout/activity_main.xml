@@ -1,58 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/original"
     android:padding="8dp"
-    tools:context=".MainActivity">
+    tools:context=".view.MainActivity">
 
     <TextView
-        android:id="@+id/text_data"
+        android:id="@+id/text_data_atual"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="05/04/2020"
-        android:textSize="30sp"
-        />
+        android:textSize="30sp" />
 
     <View
         android:id="@+id/view_line"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_below="@+id/text_data"
-        android:background="@color/colorPrimary"
-        />
+        android:layout_below="@+id/text_data_atual"
+        android:background="@color/colorPrimary" />
 
     <TextView
         android:id="@+id/text_label_dias_restantes"
-        android:layout_below="@+id/view_line"
-        android:layout_marginTop="160dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/view_line"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="160dp"
         android:text="@string/dias_restantes_para_o_fim_do_ano"
-        android:textSize="20sp"
-        />
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/dias_restantes"
-        android:layout_below="@+id/text_label_dias_restantes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/text_label_dias_restantes"
         android:gravity="center"
-        android:text="320 dias"
-        android:textSize="30sp"
-        />
+        android:text=""
+        android:textSize="30sp" />
 
     <Button
         android:id="@+id/button_opcao"
-        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="SIM/NÃO/NÃO CONFIRMADO"
-        android:background="@color/colorPrimary"/>
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimary"
+        android:text="@string/nao_confirmado" />
 
 
 </RelativeLayout>

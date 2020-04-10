@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".DetalheActivity">
+    tools:context=".view.DetalheActivity">
 
     <TextView
         android:id="@+id/text_label_voce_vai_participar"
@@ -29,6 +29,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:layout_gravity="center"
+        android:textSize="20sp"
         android:text="@string/voce_vai_participar"
         />
 
