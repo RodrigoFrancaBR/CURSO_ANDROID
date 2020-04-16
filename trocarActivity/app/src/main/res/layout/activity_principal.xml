@@ -16,8 +16,8 @@
         android:layout_marginTop="50dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text=" Trocar de Activity"
+        android:text=" Google.com"
         android:textSize="20sp"
-        android:onClick="trocarActivity"
+        android:onClick="abrirLink"
         />
 </LinearLayout>
