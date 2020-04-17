@@ -20,4 +20,12 @@
         android:textSize="20sp"
         android:onClick="abrirLink"
         />
+    <Button
+        android:layout_marginTop="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=" Trocar de Activity"
+        android:textSize="20sp"
+        android:onClick="trocarActivity"
+        />
 </LinearLayout>
