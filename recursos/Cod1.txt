@@ -1,0 +1,47 @@
+01 <LinearLayout      
+02   xmlns:android="http://schemas.android.com/apk/res/android"
+03     xmlns:tools="http://schemas.android.com/tools"
+04     android:layout_width="fill_parent"
+05     android:layout_height="fill_parent"
+06     android:orientation="vertical" >   
+07     <CheckBox      
+08         android:id="@+id/check1"      
+09         android:layout_width="wrap_content"      
+10         android:layout_height="wrap_content"     
+11         android:text="Primeiro Check Button"      
+12         android:onClick="fazAlgoOnChecked" />      
+13     <CheckBox      
+14         android:id="@+id/check2"      
+15         style="?android:attr/starStyle"      
+16         android:layout_width="wrap_content"     
+17         android:layout_height="wrap_content"     
+18         android:text="Segundo Check Button"     
+19         android:onClick="fazAlgoOnChecked" />     
+20     <ToggleButton
+21         android:id="@+id/toggle"     
+22         android:layout_width="wrap_content"      
+23         android:layout_height="wrap_content"     
+24         android:textOff="Desligado"      
+25         android:textOn="Ligado"      
+26         android:onClick="fazAlgoOnToggleClicked" />      
+27     <RadioGroup      
+28         android:id="@+id/radioGroup"      
+29         android:layout_width="wrap_content"      
+30         android:layout_height="wrap_content"      
+31         android:orientation="horizontal" >      
+32        <RadioButton      
+33             android:id="@+id/radioSim"      
+34             android:layout_width="wrap_content"      
+35             android:layout_height="wrap_content"      
+36             android:checked="false"      
+37             android:text="Sim"      
+38             android:onClick="fazAlgoOnRadioButtonClicked" />      
+39        <RadioButton      
+40             android:id="@+id/radioNao"      
+41             android:layout_width="wrap_content"      
+42             android:layout_height="wrap_content"      
+43             android:checked="false"      
+44             android:text="Não"      
+45             android:onClick="fazAlgoOnRadioButtonClicked" />      
+46     </RadioGroup>      
+47 </LinearLayout>
