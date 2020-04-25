@@ -1,31 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".MainActivity">
+    android:stretchColumns="1">
 
     <TableRow>
-        <TextView
-            android:text="Coluna 1"
-            android:textSize="50sp"
-            />
-        <TextView
-            android:text="Coluna 2"
-            android:textSize="50sp"
-            />
+
+        <TextView android:text="Nome:" />
+
+        <EditText android:id="@+id/nome" />
+    </TableRow>
+
+
+    <TableRow>
+
+        <TextView android:text="Usuário:" />
+
+        <EditText android:id="@+id/login" />
     </TableRow>
 
     <TableRow>
-        <TextView
-            android:text="Coluna 1"
-            android:textSize="50sp"
-            />
-        <TextView
-            android:text="Coluna 2"
-            android:textSize="50sp"
-            />
+
+        <TextView android:text="Senha:" />
+
+        <EditText
+            android:id="@+id/senha"
+            android:password="true" />
+
     </TableRow>
+
+    <TableRow>
+
+        <TextView android:text="UF:" />
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawSelectorOnTop="true"
+            android:entries="@array/array_uf" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="Sexo:" />
+
+        <RadioButton
+            android:id="@+id/masculino"
+            android:layout_gravity="right" />
+
+        <TextView android:text="Masculino:" />
+
+        <RadioButton android:id="@+id/feminino" />
+
+        <TextView android:text="Feminino:" />
+
+    </TableRow>
+
+
 </TableLayout>

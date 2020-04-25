@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:stretchColumns="1"
+    tools:context=".MainActivity">
+
+    <TableRow>
+        <TextView android:text="Nome:" />
+        <EditText android:id="@+id/nome" />
+    </TableRow>
+
+    <TableRow>
+        <TextView android:text="Usuário:" />
+        <EditText android:id="@+id/login" />
+    </TableRow>
+
+    <TableRow>
+        <TextView android:text="Senha:" />
+        <EditText android:id="@+id/senha"
+            android:password="true" />
+    </TableRow>
+
+    <TableRow>
+        <TextView android:text="UF:" />
+        <Spinner android:id="@+id/spinner"
+            android:drawSelectorOnTop="true"
+            android:entries="@array/uf" />
+    </TableRow>
+
+    <TableRow>
+        <TextView android:text="Sexo" />
+        <RadioGroup android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/radio_m"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Masculino"/>
+
+            <RadioButton
+                android:id="@+id/radio_f"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Feminino"/>
+
+        </RadioGroup>
+
+    </TableRow>
+
+    <TableRow>
+        <TextView android:text="Receber Notificações" />
+        <ToggleButton android:id="@+id/toggle" />
+    </TableRow>
+
+    <TableRow android:gravity="right">
+        <Button
+            android:id="@+id/btnCadastrar"
+            android:layout_width="wrap_content"
+            android:text="Cadastrar"
+            android:onClick="fazerCadastro"/>
+    </TableRow>
+
+</TableLayout>
