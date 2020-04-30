@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,7 +9,6 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -21,7 +20,6 @@
         android:textStyle="bold" />
 
     <ImageView
-        android:id="@+id/sun_image"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_below="@+id/title"
@@ -29,6 +27,7 @@
         android:src="@drawable/hamburger_duplo" />
 
     <EditText
+        android:id="@+id/txt_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -39,6 +38,7 @@
         android:maxLines="1" />
 
     <TextView
+        android:id="@+id/txt_price"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -57,19 +57,22 @@
         android:gravity="center">
 
         <Button
+            android:id="@+id/btn_minor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="-" />
 
         <TextView
+            android:id="@+id/txt_quantity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:text="0"
+            android:text="1"
             android:textSize="29sp" />
 
         <Button
+            android:id="@+id/btn_more"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="+" />
@@ -77,6 +80,7 @@
     </LinearLayout>
 
     <Button
+        android:id="@+id/btn_order"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -88,8 +92,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:gravity="center_horizontal"
         android:text="Your total is $15! Thanks for buying with us."
         android:textAlignment="center" />
-
 
 </LinearLayout>
