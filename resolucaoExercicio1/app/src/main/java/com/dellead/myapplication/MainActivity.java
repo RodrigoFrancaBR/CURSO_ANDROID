@@ -20,6 +20,17 @@ public class MainActivity extends AppCompatActivity {
         findInterfaceElements();
         incrementQuantity();
         decrementQuantity();
+        orderButton();
+    }
+
+    private void orderButton(){
+        this.mViewHolder.btnOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int totalNumber =  quantity * 15;
+                mViewHolder.txtTotal.setText("Your total is $" + totalNumber + "! Thanks for buying with us");
+            }
+        });
     }
 
     private void incrementQuantity() {
@@ -58,6 +69,8 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+
+
     private void findInterfaceElements() {
         this.mViewHolder.txtName = findViewById(R.id.txt_name);
         this.mViewHolder.txtPrice = findViewById(R.id.txt_price);
@@ -65,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
         this.mViewHolder.txtQuantity = findViewById(R.id.txt_quantity);
         this.mViewHolder.btnMore = findViewById(R.id.btn_more);
         this.mViewHolder.btnOrder = findViewById(R.id.btn_order);
+        this.mViewHolder.txtTotal =  findViewById(R.id.txt_total);
     }
 
     private static class ViewHolder {
@@ -74,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
         TextView txtQuantity;
         Button btnMore;
         Button btnOrder;
+        TextView txtTotal;
 
     }
 }
