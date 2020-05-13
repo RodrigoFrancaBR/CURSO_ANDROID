@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Lembretes</string>
+    <string name="title_activity_lista_de_lembretes">Lista de Lembretes</string>
+    <string name="title_activity_novo_lembrete">Lembrete</string>
+    <string name="btn_novo_lembrete">Novo Lembrete</string>
+    <string name="msg_ajuda">Ajuda</string>
+    <string name="msg_seus_lembretes">Seus lembretes.</string>
+    <string name="msg_nenhum_lembrete">Você não possui lembretes.</string>
+
+    <!-- Ajuda -->
+    <string name="msg_ajuda_dialog">Para visualizar um lembrete, toque-o na lista. O lembrete será exibido em uma nova janela. Para exlcuir um lembrete, basta pressionar o botão "X".</string>
+
+    <!-- Constantes para dialog -->
+    <string name="sim">Sim</string>
+    <string name="nao">Não</string>
+    <string name="ok">Ok</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="titulo">Título</string>
+    <string name="descricao">Descrição</string>
+    <string name="salvar">Salvar</string>
+    <string name="title_activity_exibir_lembrete">Lembrete</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="editar">Editar</string>
+    <string name="excluir">Excluir</string>
+    <string name="voltar">Voltar</string>
+
+</resources>

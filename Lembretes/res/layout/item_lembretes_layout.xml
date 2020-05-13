@@ -1,0 +1,29 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="?android:attr/listPreferredItemHeight"
+    android:padding="6dip" >
+
+    <ImageView
+        android:id="@+id/icone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="6dip"
+        android:contentDescription="Lembrete"
+        android:src="@drawable/note" />
+
+    <TextView
+        android:id="@+id/tituloLembreteLista"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignParentBottom="false"
+        android:layout_alignParentTop="false"
+        android:layout_toRightOf="@+id/icone"
+        android:ellipsize="marquee"
+        android:gravity="center_vertical"
+        android:singleLine="true"
+        android:text="Description"
+        android:textSize="15sp" />
+
+</RelativeLayout>
