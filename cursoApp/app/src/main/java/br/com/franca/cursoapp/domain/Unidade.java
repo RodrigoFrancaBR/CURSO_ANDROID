@@ -15,7 +15,8 @@ public class Unidade {
     public Unidade() {
     }
 
-    public Unidade(String nome, String endereco, Status status) {
+    public Unidade(String nome, String endereco, Status status, Long id) {
+        this.id = id;
         this.nome = nome;
         this.endereco = endereco;
         this.status = status;

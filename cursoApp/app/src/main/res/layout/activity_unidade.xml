@@ -56,8 +56,25 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="268dp"
+        android:layout_height="156dp"
         android:layout_marginTop="50dp"
         android:src="@drawable/escola" />
+
+<!--    <Button-->
+<!--        android:id="@+id/btn_listar"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="30dp"-->
+<!--        android:text="Listar Unidaes"-->
+<!--        android:textSize="20sp"-->
+<!--        android:background="#92929C"-->
+<!--        android:textAllCaps="false"-->
+<!--        />-->
+
+    <ListView
+        android:background="#ffff"
+        android:id="@+id/list_view_unidades"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

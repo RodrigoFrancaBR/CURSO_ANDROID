@@ -3,4 +3,8 @@
     <string name="entidade_null">Entidade informado é null.</string>
     <string name="nome_invalido">Nome informado é null ou em Bramco.</string>
     <string name="endereco_invalido">Endereço informado é null ou em Bramco.</string>
+    <string name="nome">"Nome: "</string>
+    <string name="endereco">"Endereço: "</string>
+    <string name="id">"Id: "</string>
+    <string name="status">"Status: "</string>
 </resources>
