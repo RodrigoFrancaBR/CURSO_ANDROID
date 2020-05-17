@@ -42,6 +42,11 @@ public class AdapterListaUnidades extends BaseAdapter {
         notifyDataSetChanged();
     }
 
+    public void addItem(Unidade unidade) {
+        listaDeUnidades.add(unidade);
+        notifyDataSetChanged();
+    }
+
     @Override
     public View getView(int position, View view, ViewGroup viewGroup) {
 

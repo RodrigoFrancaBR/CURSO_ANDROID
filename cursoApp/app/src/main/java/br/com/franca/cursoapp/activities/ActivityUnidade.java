@@ -12,7 +12,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import br.com.franca.cursoapp.R;
@@ -23,10 +22,11 @@ import br.com.franca.cursoapp.domain.Unidade;
 import br.com.franca.cursoapp.domain.enun.Status;
 
 public class ActivityUnidade extends AppCompatActivity {
-    private UnidadeBean bean = new UnidadeBean();
+    // classe resp pelo bind da interface
+    private UnidadeInterface unidadeInterface;
+
+    // private Unidade unidade;
     private UnidadeController controller;
-    private Unidade unidade;
-    private List<Unidade> listaDeUnidades = new ArrayList<>();
     private AdapterListaUnidades adapterListaUnidades;
 
     @Override
@@ -36,12 +36,23 @@ public class ActivityUnidade extends AppCompatActivity {
 
         buscarElementosDaInterface();
 
-        bean.btnCadastrar.setOnClickListener(new View.OnClickListener() {
+        // Abre conexao com o banco;
+        ConexaoSQLite conexaoSQLite = ConexaoSQLite.getInstancia(ActivityUnidade.this);
+
+        controller = new UnidadeController(conexaoSQLite);
+
+        listarUnidades();
+
+        aguardandoClickBotaoCadastrar();
+
+        aguardandoSelecionarItemDaLista();
+
+       /* bean.btnCadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Unidade unidade = obterUnidadeDoFormulario();
                 ConexaoSQLite conexaoSQLite = ConexaoSQLite.getInstancia(ActivityUnidade.this);
-                controller = new UnidadeController(conexaoSQLite);
+                // controller = new UnidadeController(conexaoSQLite);
                 try {
                     controller.salvar(unidade);
                     executarToast("salvar_sucesso");
@@ -50,11 +61,57 @@ public class ActivityUnidade extends AppCompatActivity {
                     executarToast(e.getMessage());
                 }
             }
-        });
+        });*/
 
 
         // selecionar um item na lista de unidades
-        bean.listViewUnidades.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+       /* unidadeInterface.listViewUnidades.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+
+                final Unidade unidade = (Unidade) adapterListaUnidades.getItem(position);
+
+                AlertDialog.Builder janelaDeOpcoes = new AlertDialog.Builder(ActivityUnidade.this);
+                janelaDeOpcoes.setTitle("Opções:");
+                janelaDeOpcoes.setMessage("O que fazer com a Entidade: " + unidade.getNome());
+
+                janelaDeOpcoes.setNeutralButton("Cancelar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+                janelaDeOpcoes.setNegativeButton("Remover", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        try {
+                            controller.remover(unidade.getId());
+                            executarToast("remover_sucesso");
+                            adapterListaUnidades.remover(position);
+                        } catch (Exception e) {
+                            executarToast(e.getMessage());
+                        } finally {
+                            dialog.cancel();
+                        }
+                    }
+                });
+
+                janelaDeOpcoes.setPositiveButton("Editar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+                janelaDeOpcoes.create().show();
+            }
+        });*/
+
+    }
+
+    private void aguardandoSelecionarItemDaLista() {
+        unidadeInterface.listViewUnidades.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
 
@@ -96,15 +153,48 @@ public class ActivityUnidade extends AppCompatActivity {
                 janelaDeOpcoes.create().show();
             }
         });
-
     }
 
-  /*  private void criarUnidade(List<Unidade> listaDeUnidades) {
-        for (Long i = 0l; i < 10; i++) {
-            String nome = "CASCADURA_" + i;
-            listaDeUnidades.add(new Unidade(nome + i, "QUINTÃO 153", Status.ATIVA, i));
-        }
-    }*/
+    private void aguardandoClickBotaoCadastrar() {
+        unidadeInterface.btnCadastrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Unidade unidade = obterUnidadeDaInterface();
+                // ConexaoSQLite conexaoSQLite = ConexaoSQLite.getInstancia(ActivityUnidade.this);
+                // controller = new UnidadeController(conexaoSQLite);
+                try {
+                    Long id = controller.salvar(unidade);
+                    executarToast("salvar_sucesso");
+                    unidade.setId(id);
+                    adapterListaUnidades.addItem(unidade);
+                    limparInterface();
+                    // listarUnidades();
+                } catch (Exception e) {
+                    executarToast(e.getMessage());
+                }
+            }
+        });
+    }
+
+    private void limparInterface() {
+        unidadeInterface.editNome.setText("");
+        unidadeInterface.editEndereco.setText("");
+    }
+
+    private Unidade obterUnidadeDaInterface() {
+        return new Unidade(
+                unidadeInterface.editNome.getText().toString(),
+                unidadeInterface.editEndereco.getText().toString(),
+                Status.ATIVA,
+                null
+        );
+    }
+
+    private void listarUnidades() {
+        List<Unidade> listaDeUnidades = controller.listar();
+        adapterListaUnidades = new AdapterListaUnidades(ActivityUnidade.this, listaDeUnidades);
+        unidadeInterface.listViewUnidades.setAdapter(adapterListaUnidades);
+    }
 
     private void executarToast(String msg) {
         switch (msg) {
@@ -136,29 +226,15 @@ public class ActivityUnidade extends AppCompatActivity {
 
     }
 
-    private void listarUnidades() {
-        listaDeUnidades = controller.listar();
-        adapterListaUnidades = new AdapterListaUnidades(ActivityUnidade.this, listaDeUnidades);
-        bean.listViewUnidades.setAdapter(adapterListaUnidades);
-    }
-
-    private Unidade obterUnidadeDoFormulario() {
-        return unidade = new Unidade(
-                bean.editNome.getText().toString(),
-                bean.editEndereco.getText().toString(),
-                Status.ATIVA,
-                null
-        );
-    }
-
     private void buscarElementosDaInterface() {
-        this.bean.editNome = findViewById(R.id.edit_nome);
-        this.bean.editEndereco = findViewById(R.id.edit_endereco);
-        this.bean.btnCadastrar = findViewById(R.id.btn_cadastrar);
-        this.bean.listViewUnidades = findViewById(R.id.list_view_unidades);
+        unidadeInterface = new UnidadeInterface();
+        unidadeInterface.editNome = findViewById(R.id.edit_nome);
+        unidadeInterface.editEndereco = findViewById(R.id.edit_endereco);
+        unidadeInterface.btnCadastrar = findViewById(R.id.btn_cadastrar);
+        unidadeInterface.listViewUnidades = findViewById(R.id.list_view_unidades);
     }
 
-    private static class UnidadeBean {
+    private static class UnidadeInterface {
         ListView listViewUnidades;
         EditText editNome;
         EditText editEndereco;

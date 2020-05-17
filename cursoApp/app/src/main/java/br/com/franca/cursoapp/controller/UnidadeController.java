@@ -18,7 +18,7 @@ public class UnidadeController {
         dao = new UnidadeDAO(conexaoSQLite);
     }
 
-    public void salvar(Unidade unidade) throws Exception {
+    public Long salvar(Unidade unidade) throws Exception {
         if (unidade == null)
             throw new Exception("entidade_null");
 
@@ -28,7 +28,7 @@ public class UnidadeController {
         if (enderecoInvalido(unidade.getEndereco()))
             throw new Exception("endereco_invalido");
 
-        dao.salvar(unidade);
+       return dao.salvar(unidade);
     }
 
     public List<Unidade> listar() {

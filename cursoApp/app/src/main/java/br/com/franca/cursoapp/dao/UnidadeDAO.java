@@ -20,7 +20,7 @@ public class UnidadeDAO {
         this.conexaoSQLite = conexaoSQLite;
     }
 
-    public void salvar(Unidade unidade) throws Exception {
+    public Long salvar(Unidade unidade) throws Exception {
         SQLiteDatabase db = conexaoSQLite.getWritableDatabase();
 
         try {
@@ -30,7 +30,7 @@ public class UnidadeDAO {
             v.put("endereco", unidade.getEndereco());
             v.put("status", unidade.getStatus().getValor());
 
-            db.insert("TB_UNIDADE", null, v);
+            return db.insert("TB_UNIDADE", null, v);
 
         } catch (Exception e) {
             throw new Exception("salvar_falha");

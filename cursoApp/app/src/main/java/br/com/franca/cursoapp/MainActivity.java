@@ -21,12 +21,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        buscarElementosDaInterface();
 
-//        ConexaoSQLite conexaoSQLite = ConexaoSQLite.getInstancia(this);
-//        Unidade unidade = new Unidade(60l, "Cascadura", "Rua Quintão 153", Status.ATIVA);
-//        UnidadeController controller = new UnidadeController(conexaoSQLite);
-//        controller.salvar(unidade);
+        buscarElementosDaInterface();
 
         bean.btnCadastrarUnidade.setOnClickListener(new View.OnClickListener() {
             @Override
