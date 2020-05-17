@@ -24,6 +24,17 @@ public enum Status {
         }
     }
 
+    public static Status obterStatusPeloValor(String valor) {
+        switch (valor){
+            case "Desativada" :
+                return Status.DESATIVADA;
+            case "Ativa" :
+                return Status.ATIVA;
+            default:
+                return Status.INVALIDA;
+        }
+    }
+
     public int getChave() {
         return chave;
     }

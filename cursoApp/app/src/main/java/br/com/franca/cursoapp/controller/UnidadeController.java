@@ -3,6 +3,8 @@ package br.com.franca.cursoapp.controller;
 import android.widget.Toast;
 
 
+import java.util.List;
+
 import br.com.franca.cursoapp.MainActivity;
 import br.com.franca.cursoapp.activities.ActivityUnidade;
 import br.com.franca.cursoapp.dao.UnidadeDAO;
@@ -26,9 +28,11 @@ public class UnidadeController {
         if (enderecoInvalido(unidade.getEndereco()))
             throw new Exception("endereco_invalido");
 
-        long resultado = this.dao.salvar(unidade);
+        return dao.salvar(unidade);
+    }
 
-        return resultado;
+    public List<Unidade> listar(){
+        return dao.listar();
     }
 
     private boolean nomeInvalido(String nome) {

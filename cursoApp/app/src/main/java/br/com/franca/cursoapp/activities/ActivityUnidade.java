@@ -1,13 +1,16 @@
 package br.com.franca.cursoapp.activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
@@ -22,8 +25,10 @@ import br.com.franca.cursoapp.domain.enun.Status;
 
 public class ActivityUnidade extends AppCompatActivity {
     private UnidadeBean bean = new UnidadeBean();
+    private UnidadeController controller;
     private Unidade unidade;
-    List<Unidade> listaDeUnidades = new ArrayList<>();
+    private List<Unidade> listaDeUnidades = new ArrayList<>();
+    private AdapterListaUnidades adapterListaUnidades;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,18 +42,55 @@ public class ActivityUnidade extends AppCompatActivity {
             public void onClick(View v) {
                 Unidade unidade = obterUnidadeDoFormulario();
                 ConexaoSQLite conexaoSQLite = ConexaoSQLite.getInstancia(ActivityUnidade.this);
-                UnidadeController controller = new UnidadeController(conexaoSQLite);
+                controller = new UnidadeController(conexaoSQLite);
                 try {
-                    long resultado = 0;
-                    resultado = controller.salvar(unidade);
-                    System.out.println(resultado);
-                    if (resultado> 0)
-                        unidade.setId(resultado);
-                        listaDeUnidades.add(unidade);
+                    // long resultado = 0;
+                    // resultado = controller.salvar(unidade);
+                    // System.out.println(resultado);
+                    if (controller.salvar(unidade) > 0)
+                        // unidade.setId(resultado);
+                        // listaDeUnidades.add(unidade);
                         listarUnidades();
                 } catch (Exception e) {
                     executarToast(e.getMessage());
                 }
+            }
+        });
+
+        bean.listViewUnidades.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Unidade unidade = (Unidade) adapterListaUnidades.getItem(position);
+
+                // Toast.makeText(ActivityUnidade.this, "Unidade: " + unidade.getNome(), Toast.LENGTH_SHORT).show();
+
+                AlertDialog.Builder janelaDeOpcoes = new AlertDialog.Builder(ActivityUnidade.this);
+                janelaDeOpcoes.setTitle("Opções:");
+                janelaDeOpcoes.setMessage("Escolha uma das opções: ");
+
+                janelaDeOpcoes.setNeutralButton("Cancelar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+                janelaDeOpcoes.setNegativeButton("Remover", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+                janelaDeOpcoes.setPositiveButton("Editar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+                janelaDeOpcoes.create().show();
             }
         });
 
@@ -92,9 +134,20 @@ public class ActivityUnidade extends AppCompatActivity {
 
     }
 
-    private void listarUnidades(){
-        AdapterListaUnidades adapterListaUnidades = new AdapterListaUnidades(ActivityUnidade.this, listaDeUnidades);
+    private void listarUnidades() {
+        listaDeUnidades = controller.listar();
+        adapterListaUnidades = new AdapterListaUnidades(ActivityUnidade.this, listaDeUnidades);
         bean.listViewUnidades.setAdapter(adapterListaUnidades);
+   /*     bean.listViewUnidades.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Unidade unidade = (Unidade) adapterListaUnidades.getItem(position);
+
+                Toast.makeText(ActivityUnidade.this, "Unidade: " + unidade.getNome(), Toast.LENGTH_SHORT).show();
+
+            }
+        });*/
     }
 
     private Unidade obterUnidadeDoFormulario() {
