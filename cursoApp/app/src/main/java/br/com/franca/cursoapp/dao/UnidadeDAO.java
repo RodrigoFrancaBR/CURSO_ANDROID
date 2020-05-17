@@ -20,7 +20,7 @@ public class UnidadeDAO {
         this.conexaoSQLite = conexaoSQLite;
     }
 
-    public long salvar(Unidade unidade) {
+    public void salvar(Unidade unidade) throws Exception {
         SQLiteDatabase db = conexaoSQLite.getWritableDatabase();
 
         try {
@@ -29,16 +29,16 @@ public class UnidadeDAO {
             v.put("nome", unidade.getNome());
             v.put("endereco", unidade.getEndereco());
             v.put("status", unidade.getStatus().getValor());
-            return db.insert("TB_UNIDADE", null, v);
+
+            db.insert("TB_UNIDADE", null, v);
 
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new Exception("salvar_falha");
         } finally {
             if (db != null) {
                 db.close();
             }
         }
-        return 0;
     }
 
     public List<Unidade> listar() {
@@ -58,7 +58,7 @@ public class UnidadeDAO {
                                     Status.obterStatusPeloValor(cursor.getString(3)),
                                     cursor.getLong(0)));
 
-                    }
+                }
                 while (cursor.moveToNext());
             }
         } catch (Exception e) {
@@ -71,5 +71,21 @@ public class UnidadeDAO {
         }
 
         return listaDeUnidades;
+    }
+
+    public void remover(Long id) throws Exception {
+        SQLiteDatabase db = null;
+        try {
+            db = conexaoSQLite.getWritableDatabase();
+            // db.delete("TB_UNIDADE", null, null);
+            db.delete("TB_UNIDADE", "id = ?", new String[]{String.valueOf(id)});
+        } catch (Exception e) {
+            Log.d("ERRO AO REMOVER UNIDADE", "ERRO NA HORA DE REMOVER A UNIDADE");
+            throw new Exception("remover_falha");
+        } finally {
+            if (db != null) {
+                db.close();
+            }
+        }
     }
 }
