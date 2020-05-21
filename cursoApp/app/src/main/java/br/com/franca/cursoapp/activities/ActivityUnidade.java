@@ -1,7 +1,6 @@
 package br.com.franca.cursoapp.activities;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,14 +12,12 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import br.com.franca.cursoapp.R;
 import br.com.franca.cursoapp.adapters.AdapterListaUnidades;
 import br.com.franca.cursoapp.controller.UnidadeController;
 import br.com.franca.cursoapp.dbHelper.ConexaoSQLite;
-import br.com.franca.cursoapp.domain.Turma;
 import br.com.franca.cursoapp.domain.Unidade;
 import br.com.franca.cursoapp.domain.enun.Status;
 
@@ -46,7 +43,7 @@ public class ActivityUnidade extends AppCompatActivity {
 
         listarUnidades();
 
-        aguardandoClickBotaoCadastrar();
+        aguardandoClickBotaoSalvar();
 
         aguardandoSelecionarItemDaLista();
 
@@ -149,7 +146,10 @@ public class ActivityUnidade extends AppCompatActivity {
                 janelaDeOpcoes.setPositiveButton("Editar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        Bundle bundleDadosUnidade = new Bundle();
+
+                        setUnidadeInterface(unidade);
+
+                        /*Bundle bundleDadosUnidade = new Bundle();
                         bundleDadosUnidade.putLong("id_unidade", unidade.getId());
                         bundleDadosUnidade.putString("nome_unidade", unidade.getNome());
                         bundleDadosUnidade.putString("endereco_unidade", unidade.getEndereco());
@@ -157,7 +157,7 @@ public class ActivityUnidade extends AppCompatActivity {
 
                         Intent itentEditarUnidade = new Intent(ActivityUnidade.this, ActivityEditarUnidade.class);
                         itentEditarUnidade.putExtras(bundleDadosUnidade);
-                        startActivity(itentEditarUnidade);
+                        startActivity(itentEditarUnidade);*/
                         dialog.cancel();
                     }
                 });
@@ -167,18 +167,33 @@ public class ActivityUnidade extends AppCompatActivity {
         });
     }
 
-    private void aguardandoClickBotaoCadastrar() {
-        unidadeInterface.btnCadastrar.setOnClickListener(new View.OnClickListener() {
+    private void setUnidadeInterface(Unidade unidade) {
+        unidadeInterface.editId.setText(unidade.getId().toString());
+        unidadeInterface.editNome.setText(unidade.getNome());
+        unidadeInterface.editEndereco.setText(unidade.getEndereco());
+        unidadeInterface.editStatus.setText(unidade.getStatus().getValor());
+    }
+
+    private void aguardandoClickBotaoSalvar() {
+        unidadeInterface.btnSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Unidade unidade = obterUnidadeDaInterface();
+                System.out.println(unidade.toString());
                 // ConexaoSQLite conexaoSQLite = ConexaoSQLite.getInstancia(ActivityUnidade.this);
                 // controller = new UnidadeController(conexaoSQLite);
                 try {
-                    Long id = controller.salvar(unidade);
-                    executarToast("salvar_sucesso");
-                    unidade.setId(id);
-                    adapterListaUnidades.addItem(unidade);
+                    if (unidade.getId() == null) {
+                        long id = controller.salvar(unidade);
+                        unidade.setId(id);
+                        adapterListaUnidades.addItem(unidade);
+                        executarToast("salvar_sucesso");
+                    } else {
+                        long id = controller.atualizar(unidade);
+                        unidade.setId(id);
+                        executarToast("atualizar_sucesso");
+                    }
+
                     limparInterface();
                     // listarUnidades();
                 } catch (Exception e) {
@@ -189,8 +204,10 @@ public class ActivityUnidade extends AppCompatActivity {
     }
 
     private void limparInterface() {
+        unidadeInterface.editId.setText("");
         unidadeInterface.editNome.setText("");
         unidadeInterface.editEndereco.setText("");
+        unidadeInterface.editStatus.setText("");
     }
 
     private Unidade obterUnidadeDaInterface() {
@@ -198,7 +215,7 @@ public class ActivityUnidade extends AppCompatActivity {
                 unidadeInterface.editNome.getText().toString(),
                 unidadeInterface.editEndereco.getText().toString(),
                 Status.ATIVA,
-                null
+                Long.valueOf(unidadeInterface.editId.getText().toString())
         );
     }
 
@@ -228,6 +245,12 @@ public class ActivityUnidade extends AppCompatActivity {
             case "salvar_sucesso":
                 Toast.makeText(this, getString(R.string.salvar_sucesso), Toast.LENGTH_LONG).show();
                 break;
+            case "atualizar_falha":
+                Toast.makeText(this, getString(R.string.atualizar_falha), Toast.LENGTH_LONG).show();
+                break;
+            case "atualizar_sucesso":
+                Toast.makeText(this, getString(R.string.atualizar_sucesso), Toast.LENGTH_LONG).show();
+                break;
             case "remover_falha":
                 Toast.makeText(this, getString(R.string.remover_falha), Toast.LENGTH_LONG).show();
                 break;
@@ -240,17 +263,21 @@ public class ActivityUnidade extends AppCompatActivity {
 
     private void buscarElementosDaInterface() {
         unidadeInterface = new UnidadeInterface();
+        unidadeInterface.editId = findViewById(R.id.edit_id);
         unidadeInterface.editNome = findViewById(R.id.edit_nome);
         unidadeInterface.editEndereco = findViewById(R.id.edit_endereco);
-        unidadeInterface.btnCadastrar = findViewById(R.id.btn_cadastrar);
+        unidadeInterface.editStatus = findViewById(R.id.edit_status);
+        unidadeInterface.btnSalvar = findViewById(R.id.btn_salvar);
         unidadeInterface.listViewUnidades = findViewById(R.id.list_view_unidades);
     }
 
     private static class UnidadeInterface {
         ListView listViewUnidades;
+        EditText editId;
         EditText editNome;
         EditText editEndereco;
-        Button btnCadastrar;
+        EditText editStatus;
+        Button btnSalvar;
         Button btnListar;
     }
 }

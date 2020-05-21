@@ -13,5 +13,7 @@
     <string name="salvar_sucesso">Entidade salva com sucesso.</string>
     <string name="remover_falha">Falha ao tentar remover</string>
     <string name="remover_sucesso">Entidade removida com sucesso</string>
+    <string name="atualizar_falha">Falha ao tentar atualizar</string>
+    <string name="atualizar_sucesso">Entidade atualizada com sucesso</string>
 
 </resources>

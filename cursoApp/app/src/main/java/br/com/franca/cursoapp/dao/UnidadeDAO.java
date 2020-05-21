@@ -20,7 +20,7 @@ public class UnidadeDAO {
         this.conexaoSQLite = conexaoSQLite;
     }
 
-    public Long salvar(Unidade unidade) throws Exception {
+    public long salvar(Unidade unidade) throws Exception {
         SQLiteDatabase db = conexaoSQLite.getWritableDatabase();
 
         try {
@@ -33,6 +33,7 @@ public class UnidadeDAO {
             return db.insert("TB_UNIDADE", null, v);
 
         } catch (Exception e) {
+            Log.d("UnidadeDAO", "long salvar(Unidade unidade)");
             throw new Exception("salvar_falha");
         } finally {
             if (db != null) {
@@ -62,7 +63,7 @@ public class UnidadeDAO {
                 while (cursor.moveToNext());
             }
         } catch (Exception e) {
-            Log.d("ERRO LISTAR UNIDADES", "ERRO NO RETORNO DAS UNIDADES");
+            Log.d("UnidadeDAO", "List<Unidade> listar()");
             return null;
         } finally {
             if (db != null) {
@@ -80,12 +81,42 @@ public class UnidadeDAO {
             // db.delete("TB_UNIDADE", null, null);
             db.delete("TB_UNIDADE", "id = ?", new String[]{String.valueOf(id)});
         } catch (Exception e) {
-            Log.d("ERRO AO REMOVER UNIDADE", "ERRO NA HORA DE REMOVER A UNIDADE");
+            Log.d("UnidadeDAO", "void remover(Long id)");
             throw new Exception("remover_falha");
         } finally {
             if (db != null) {
                 db.close();
             }
         }
+    }
+
+    public Unidade buscarPorId(Long id) {
+        return null;
+    }
+
+    public int atualizar(Unidade unidade) throws Exception {
+        SQLiteDatabase db = null;
+        try {
+            db = conexaoSQLite.getWritableDatabase();
+            return db.update("TB_UNIDADE",
+                    atualizarContentValues(unidade),
+                    "id=?",
+                    new String[]{String.valueOf(unidade.getId())});
+        } catch (Exception e) {
+            Log.d("UnidadeDAO", "int atualizar(Unidade unidadeEncontrada)");
+            throw new Exception("atualizar_falha");
+        } finally {
+            if (db != null) {
+                db.close();
+            }
+        }
+    }
+
+    private ContentValues atualizarContentValues(Unidade unidade) {
+        ContentValues v = new ContentValues();
+        v.put("nome", unidade.getNome());
+        v.put("endereco", unidade.getEndereco());
+        v.put("status", unidade.getStatus().getValor());
+        return v;
     }
 }

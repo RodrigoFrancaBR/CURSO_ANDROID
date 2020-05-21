@@ -30,7 +30,7 @@ public class ActivityTurma extends AppCompatActivity {
 
     private void buscarElementosDaInterface() {
         this.bean.editNome = findViewById(R.id.edit_nome);
-        this.bean.btnCadastrar = findViewById(R.id.btn_cadastrar);
+        this.bean.btnCadastrar = findViewById(R.id.btn_salvar);
     }
 
     private static class TurmaBean {
