@@ -70,6 +70,12 @@ public class AdapterListaUnidades extends BaseAdapter {
 
     }
 
+    public void update(int posicao, Unidade unidade) {
+        listaDeUnidades.remove(posicao);
+        listaDeUnidades.add(unidade);
+        notifyDataSetChanged();
+    }
+
     private static class LayoutUnidadeBean {
         TextView textId;
         TextView textNome;

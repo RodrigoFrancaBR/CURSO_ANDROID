@@ -147,7 +147,7 @@ public class ActivityUnidade extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
 
-                        setUnidadeInterface(unidade);
+                        setUnidadeInterface(unidade, id);
 
                         /*Bundle bundleDadosUnidade = new Bundle();
                         bundleDadosUnidade.putLong("id_unidade", unidade.getId());
@@ -167,11 +167,12 @@ public class ActivityUnidade extends AppCompatActivity {
         });
     }
 
-    private void setUnidadeInterface(Unidade unidade) {
+    private void setUnidadeInterface(Unidade unidade, int posicao) {
         unidadeInterface.editId.setText(unidade.getId().toString());
         unidadeInterface.editNome.setText(unidade.getNome());
         unidadeInterface.editEndereco.setText(unidade.getEndereco());
         unidadeInterface.editStatus.setText(unidade.getStatus().getValor());
+        unidadeInterface.posicao = posicao;
     }
 
     private void aguardandoClickBotaoSalvar() {
@@ -191,6 +192,8 @@ public class ActivityUnidade extends AppCompatActivity {
                     } else {
                         long id = controller.atualizar(unidade);
                         unidade.setId(id);
+                        adapterListaUnidades.remover(unidadeInterface.posicao);
+                        // adapterListaUnidades.update(unidadeInterface.posicao, unidade);
                         executarToast("atualizar_sucesso");
                     }
 
@@ -211,11 +214,16 @@ public class ActivityUnidade extends AppCompatActivity {
     }
 
     private Unidade obterUnidadeDaInterface() {
+        // String resultado = unidadeInterface.editId.getText().toString();
+        Long id = null;
+        if (!unidadeInterface.editId.getText().toString().equals(""))
+            id = Long.valueOf(unidadeInterface.editId.getText().toString());
+
         return new Unidade(
                 unidadeInterface.editNome.getText().toString(),
                 unidadeInterface.editEndereco.getText().toString(),
                 Status.ATIVA,
-                Long.valueOf(unidadeInterface.editId.getText().toString())
+                id
         );
     }
 
@@ -279,5 +287,6 @@ public class ActivityUnidade extends AppCompatActivity {
         EditText editStatus;
         Button btnSalvar;
         Button btnListar;
+        int posicao;
     }
 }

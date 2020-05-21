@@ -47,9 +47,7 @@ public class UnidadeController {
     }
 
     public void remover(Long id) throws Exception {
-        /*if (id == null)
-            throw new Exception("id_null");*/
-        validarID(id);
+        // validarID(id);
         dao.remover(id);
     }
 
