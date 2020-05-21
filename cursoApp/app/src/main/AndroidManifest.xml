@@ -9,27 +9,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity android:name=".activities.ActivityEditarUnidade"></activity>
         <activity
             android:name=".activities.ActivityUnidade"
-            android:label="Cadastrar Unidade"
-            />
+            android:label="Cadastrar Unidade" />
         <activity
             android:name=".activities.ActivityTurma"
-            android:label="Cadastrar Turma"
-            />
+            android:label="Cadastrar Turma" />
         <activity
             android:name=".activities.ActivityListarUnidades"
-            android:label="Listar Unidades"
-            />
-
+            android:label="Listar Unidades" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>

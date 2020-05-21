@@ -22,6 +22,12 @@ public class Unidade {
         this.status = status;
     }
 
+    public Unidade(long id_unidade, String nome_unidade, String endereco_unidade) {
+        this.id = id_unidade;
+        this.nome = nome_unidade;
+        endereco = endereco_unidade;
+    }
+
     public Long getId() {
         return id;
     }

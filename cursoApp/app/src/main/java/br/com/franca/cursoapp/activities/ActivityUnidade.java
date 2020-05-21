@@ -1,6 +1,7 @@
 package br.com.franca.cursoapp.activities;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,12 +13,14 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.franca.cursoapp.R;
 import br.com.franca.cursoapp.adapters.AdapterListaUnidades;
 import br.com.franca.cursoapp.controller.UnidadeController;
 import br.com.franca.cursoapp.dbHelper.ConexaoSQLite;
+import br.com.franca.cursoapp.domain.Turma;
 import br.com.franca.cursoapp.domain.Unidade;
 import br.com.franca.cursoapp.domain.enun.Status;
 
@@ -146,6 +149,15 @@ public class ActivityUnidade extends AppCompatActivity {
                 janelaDeOpcoes.setPositiveButton("Editar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
+                        Bundle bundleDadosUnidade = new Bundle();
+                        bundleDadosUnidade.putLong("id_unidade", unidade.getId());
+                        bundleDadosUnidade.putString("nome_unidade", unidade.getNome());
+                        bundleDadosUnidade.putString("endereco_unidade", unidade.getEndereco());
+                        bundleDadosUnidade.putString("status_unidade", unidade.getStatus().getValor());
+
+                        Intent itentEditarUnidade = new Intent(ActivityUnidade.this, ActivityEditarUnidade.class);
+                        itentEditarUnidade.putExtras(bundleDadosUnidade);
+                        startActivity(itentEditarUnidade);
                         dialog.cancel();
                     }
                 });
