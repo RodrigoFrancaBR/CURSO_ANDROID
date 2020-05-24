@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Curso App</string>
+    <string name="entidade_null">Entidade informado é null.</string>
+    <string name="nome_invalido">Nome informado é null ou em Bramco.</string>
+    <string name="endereco_invalido">Endereço informado é null ou em Bramco.</string>
+    <string name="nome">"Nome: "</string>
+    <string name="endereco">"Endereço: "</string>
+    <string name="id">"Id: "</string>
+    <string name="status">"Status: "</string>
+    <string name="entidade_removido">Entidade removido com sucesso</string>
+    <string name="id_null">Id é null</string>
+    <string name="salvar_falha">Falha ao tentar salvar</string>
+    <string name="salvar_sucesso">Entidade salva com sucesso.</string>
+    <string name="remover_falha">Falha ao tentar remover</string>
+    <string name="remover_sucesso">Entidade removida com sucesso</string>
+    <string name="atualizar_falha">Falha ao tentar atualizar</string>
+    <string name="atualizar_sucesso">Entidade atualizada com sucesso</string>
+
+</resources>

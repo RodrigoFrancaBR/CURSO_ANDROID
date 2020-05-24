@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#000000"
+    tools:context=".activities.ActivityUnidade">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#92929C"
+        android:textColor="#010B01"
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="Cadastro de Turmas"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/edit_nome"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="30dp"
+        android:padding="10dp"
+        android:background="#FFFFFF"
+        android:hint="Nome"
+        android:textColor="#090000"
+        />
+
+    <Button
+        android:id="@+id/btn_salvar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="Cadastrar"
+        android:textSize="20sp"
+        android:background="#92929C"
+        android:textAllCaps="false"
+        />
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="268dp"
+        android:layout_marginTop="50dp"
+        android:src="@drawable/turma" />
+
+</LinearLayout>
