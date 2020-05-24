@@ -116,6 +116,7 @@ public class ActivityUnidade extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
 
                 final Unidade unidade = (Unidade) adapterListaUnidades.getItem(position);
+                unidadeInterface.posicao = position;
 
                 AlertDialog.Builder janelaDeOpcoes = new AlertDialog.Builder(ActivityUnidade.this);
                 janelaDeOpcoes.setTitle("Opções:");
@@ -133,8 +134,9 @@ public class ActivityUnidade extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int id) {
                         try {
                             controller.remover(unidade.getId());
+                            listarUnidades();
                             executarToast("remover_sucesso");
-                            adapterListaUnidades.remover(position);
+                            // adapterListaUnidades.remover(position);
                         } catch (Exception e) {
                             executarToast(e.getMessage());
                         } finally {
@@ -147,7 +149,7 @@ public class ActivityUnidade extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
 
-                        setUnidadeInterface(unidade, id);
+                        setUnidadeInterface(unidade);
 
                         /*Bundle bundleDadosUnidade = new Bundle();
                         bundleDadosUnidade.putLong("id_unidade", unidade.getId());
@@ -167,12 +169,11 @@ public class ActivityUnidade extends AppCompatActivity {
         });
     }
 
-    private void setUnidadeInterface(Unidade unidade, int posicao) {
+    private void setUnidadeInterface(Unidade unidade) {
         unidadeInterface.editId.setText(unidade.getId().toString());
         unidadeInterface.editNome.setText(unidade.getNome());
         unidadeInterface.editEndereco.setText(unidade.getEndereco());
         unidadeInterface.editStatus.setText(unidade.getStatus().getValor());
-        unidadeInterface.posicao = posicao;
     }
 
     private void aguardandoClickBotaoSalvar() {
@@ -186,14 +187,15 @@ public class ActivityUnidade extends AppCompatActivity {
                 try {
                     if (unidade.getId() == null) {
                         long id = controller.salvar(unidade);
-                        unidade.setId(id);
-                        adapterListaUnidades.addItem(unidade);
+                        listarUnidades();
+                        // unidade.setId(id);
+                        // adapterListaUnidades.addItem(unidade);
                         executarToast("salvar_sucesso");
                     } else {
-                        long id = controller.atualizar(unidade);
-                        unidade.setId(id);
-                        adapterListaUnidades.remover(unidadeInterface.posicao);
-                        // adapterListaUnidades.update(unidadeInterface.posicao, unidade);
+                        controller.atualizar(unidade);
+                        listarUnidades();
+                        //adapterListaUnidades.remover(unidadeInterface.posicao);
+                        //adapterListaUnidades.addItem(unidade);
                         executarToast("atualizar_sucesso");
                     }
 
