@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "425969437446",
+    "firebase_url": "https://cursofirebase-f42ef.firebaseio.com",
+    "project_id": "cursofirebase-f42ef",
+    "storage_bucket": "cursofirebase-f42ef.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:425969437446:android:0b3c92022707bf642cac87",
+        "android_client_info": {
+          "package_name": "br.com.franca.cursoapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "425969437446-8e7auttj4rgjos160c30k1c5cksm041v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.franca.cursoapp",
+            "certificate_hash": "cc016624ec97f7e8809fa3c5834dcb74f47b8149"
+          }
+        },
+        {
+          "client_id": "425969437446-8j8c3j2vg88hc5a6br5cgobv19sebd2h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDF_w0n20JNFlR6k6khm7cjomu0U7RcnMs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "425969437446-8j8c3j2vg88hc5a6br5cgobv19sebd2h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

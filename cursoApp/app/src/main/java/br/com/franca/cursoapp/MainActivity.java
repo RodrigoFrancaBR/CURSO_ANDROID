@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import br.com.franca.cursoapp.activities.ActivityTurma;
 import br.com.franca.cursoapp.activities.ActivityUnidade;
 import br.com.franca.cursoapp.controller.UnidadeController;
@@ -21,6 +24,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Grava uma mensagem no banco de dados
+        FirebaseDatabase database = FirebaseDatabase . getInstance ();
+        DatabaseReference myRef = database.getReference ( "mensagem" );
+
+        myRef.setValue ( "Olá, mundo!" );
+
 
         buscarElementosDaInterface();
 
