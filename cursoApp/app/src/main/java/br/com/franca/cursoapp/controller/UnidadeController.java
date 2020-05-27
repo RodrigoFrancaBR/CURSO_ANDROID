@@ -1,8 +1,5 @@
 package br.com.franca.cursoapp.controller;
 
-
-import android.util.Log;
-
 import java.util.List;
 
 import br.com.franca.cursoapp.dao.UnidadeDAO;
@@ -16,7 +13,19 @@ public class UnidadeController {
         dao = new UnidadeDAO(conexaoSQLite);
     }
 
-    public long salvar(Unidade unidade) throws Exception {
+    public List<Unidade> findAll() {
+        return dao.findAll();
+    }
+
+    public Unidade findById(Long id) throws Exception {
+
+        if (id == null)
+            throw new Exception("id_null");
+
+        return dao.findById(id);
+    }
+
+    public long save(Unidade unidade) throws Exception {
         if (unidade == null)
             throw new Exception("entidade_null");
 
@@ -26,31 +35,34 @@ public class UnidadeController {
         if (enderecoInvalido(unidade.getEndereco()))
             throw new Exception("endereco_invalido");
 
-        return dao.salvar(unidade);
+        return dao.save(unidade);
 
     }
 
-    public int atualizar(Unidade unidade) throws Exception {
-        // Unidade unidadeEncontrada = validarID(unidade.getId());
-        return dao.atualizar(unidade);
+    public int update(Unidade unidade) throws Exception {
+
+        if (unidade == null)
+            throw new Exception("entidade_null");
+
+        Unidade unidadeEncontrada = null;
+
+        unidadeEncontrada = findById(unidade.getId());
+
+        if (unidadeEncontrada == null)
+            throw new Exception("entidade_nao_encontrada");
+
+        return dao.update(unidade);
     }
 
-//    private Unidade buscarPorId(Long id) throws Exception {
-//        /*if (id == null)
-//            throw new Exception("id_null");*/
-//        return validarID(id);
-//        return dao.buscarPorId(id);
-//    }
+    public void delete(Long id) throws Exception {
+        Unidade unidadeEncontrada = null;
 
-    public List<Unidade> listar() {
-        return dao.listar();
+        unidadeEncontrada = findById(id);
+
+        if (unidadeEncontrada == null)
+            throw new Exception("entidade_nao_encontrada");
+        dao.delete(id);
     }
-
-    public void remover(Long id) throws Exception {
-        // validarID(id);
-        dao.remover(id);
-    }
-
 
     private boolean nomeInvalido(String nome) {
         return nome == null || nome.trim().equals("") ? true : false;
@@ -60,20 +72,4 @@ public class UnidadeController {
         return endereco == null || endereco.trim().equals("") ? true : false;
     }
 
-    private Unidade validarID(Long id) throws Exception {
-        if (id == null)
-            throw new Exception("id_null");
-
-        // Unidade unidadeEncontrada = buscarPorId(id);
-        Unidade unidadeEncontrada = dao.buscarPorId(id);
-
-        if (unidadeEncontrada == null)
-            throw new Exception("entidade_nao_encontrada");
-        return unidadeEncontrada;
-    }
-
-    /*public Unidade alterar(Unidade unidade) throws Exception {
-        Log.d("Alterando a unidade", unidade.toString());
-        return dao.atualizar(unidade) > 0 ? unidade : null;
-    }*/
 }

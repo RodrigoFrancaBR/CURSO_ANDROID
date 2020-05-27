@@ -5,7 +5,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import java.sql.SQLSyntaxErrorException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +19,66 @@ public class UnidadeDAO {
         this.conexaoSQLite = conexaoSQLite;
     }
 
-    public long salvar(Unidade unidade) throws Exception {
+    public List<Unidade> findAll() {
+        List<Unidade> listaDeUnidades = new ArrayList<>();
+        SQLiteDatabase db = null;
+        Cursor cursor;
+        String query = "SELECT * FROM TB_UNIDADE";
+
+        try {
+            db = conexaoSQLite.getReadableDatabase();
+            cursor = db.rawQuery(query, null);
+            if (cursor.moveToFirst()) {
+                do {
+                    listaDeUnidades.add(
+                            new Unidade(cursor.getString(1),
+                                    cursor.getString(2),
+                                    Status.obterStatusPeloValor(cursor.getString(3)),
+                                    cursor.getLong(0)));
+
+                }
+                while (cursor.moveToNext());
+            }
+        } catch (Exception e) {
+            Log.d("UnidadeDAO", "List<Unidade> findAll()");
+            return null;
+        } finally {
+            if (db != null) {
+                db.close();
+            }
+        }
+
+        return listaDeUnidades;
+    }
+
+    public Unidade findById(Long id) {
+        Unidade unidade = null;
+        SQLiteDatabase db = null;
+        Cursor cursor;
+        String query = "SELECT * FROM TB_UNIDADE WHERE ID=?";
+
+        try {
+            db = conexaoSQLite.getReadableDatabase();
+            cursor = db.rawQuery(query, new String[]{id.toString()});
+            if (cursor.moveToFirst()) {
+                unidade = new Unidade(cursor.getString(1),
+                        cursor.getString(2),
+                        Status.obterStatusPeloValor(cursor.getString(3)),
+                        cursor.getLong(0));
+            }
+
+        } catch (Exception e) {
+            Log.d("UnidadeDAO", "findById(Long id)");
+            return null;
+        } finally {
+            if (db != null) {
+                db.close();
+            }
+        }
+        return unidade;
+    }
+
+    public long save(Unidade unidade) throws Exception {
         SQLiteDatabase db = conexaoSQLite.getWritableDatabase();
 
         try {
@@ -42,68 +100,17 @@ public class UnidadeDAO {
         }
     }
 
-    public List<Unidade> listar() {
-        List<Unidade> listaDeUnidades = new ArrayList<>();
-        SQLiteDatabase db = null;
-        Cursor cursor;
-        String query = "SELECT * FROM TB_UNIDADE";
 
-        try {
-            db = conexaoSQLite.getReadableDatabase();
-            cursor = db.rawQuery(query, null);
-            if (cursor.moveToFirst()) {
-                do {
-                    listaDeUnidades.add(
-                            new Unidade(cursor.getString(1),
-                                    cursor.getString(2),
-                                    Status.obterStatusPeloValor(cursor.getString(3)),
-                                    cursor.getLong(0)));
-
-                }
-                while (cursor.moveToNext());
-            }
-        } catch (Exception e) {
-            Log.d("UnidadeDAO", "List<Unidade> listar()");
-            return null;
-        } finally {
-            if (db != null) {
-                db.close();
-            }
-        }
-
-        return listaDeUnidades;
-    }
-
-    public void remover(Long id) throws Exception {
-        SQLiteDatabase db = null;
-        try {
-            db = conexaoSQLite.getWritableDatabase();
-            // db.delete("TB_UNIDADE", null, null);
-            db.delete("TB_UNIDADE", "id = ?", new String[]{String.valueOf(id)});
-        } catch (Exception e) {
-            Log.d("UnidadeDAO", "void remover(Long id)");
-            throw new Exception("remover_falha");
-        } finally {
-            if (db != null) {
-                db.close();
-            }
-        }
-    }
-
-    public Unidade buscarPorId(Long id) {
-        return null;
-    }
-
-    public int atualizar(Unidade unidade) throws Exception {
+    public int update(Unidade unidade) throws Exception {
         SQLiteDatabase db = null;
         try {
             db = conexaoSQLite.getWritableDatabase();
             return db.update("TB_UNIDADE",
-                    atualizarContentValues(unidade),
+                    updateContentValues(unidade),
                     "id=?",
                     new String[]{String.valueOf(unidade.getId())});
         } catch (Exception e) {
-            Log.d("UnidadeDAO", "int atualizar(Unidade unidadeEncontrada)");
+            Log.d("UnidadeDAO", "int update(Unidade unidadeEncontrada)");
             throw new Exception("atualizar_falha");
         } finally {
             if (db != null) {
@@ -112,11 +119,26 @@ public class UnidadeDAO {
         }
     }
 
-    private ContentValues atualizarContentValues(Unidade unidade) {
+    private ContentValues updateContentValues(Unidade unidade) {
         ContentValues v = new ContentValues();
         v.put("nome", unidade.getNome());
         v.put("endereco", unidade.getEndereco());
         v.put("status", unidade.getStatus().getValor());
         return v;
+    }
+
+    public void delete(Long id) throws Exception {
+        SQLiteDatabase db = null;
+        try {
+            db = conexaoSQLite.getWritableDatabase();
+            db.delete("TB_UNIDADE", "id = ?", new String[]{String.valueOf(id)});
+        } catch (Exception e) {
+            Log.d("UnidadeDAO", "void delete(Long id)");
+            throw new Exception("remover_falha");
+        } finally {
+            if (db != null) {
+                db.close();
+            }
+        }
     }
 }

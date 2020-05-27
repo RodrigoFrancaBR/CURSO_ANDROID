@@ -24,8 +24,6 @@ import br.com.franca.cursoapp.domain.enun.Status;
 public class ActivityUnidade extends AppCompatActivity {
     // classe resp pelo bind da interface
     private UnidadeInterface unidadeInterface;
-
-    // private Unidade unidade;
     private UnidadeController controller;
     private AdapterListaUnidades adapterListaUnidades;
 
@@ -46,67 +44,6 @@ public class ActivityUnidade extends AppCompatActivity {
         aguardandoClickBotaoSalvar();
 
         aguardandoSelecionarItemDaLista();
-
-       /* bean.btnCadastrar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Unidade unidade = obterUnidadeDoFormulario();
-                ConexaoSQLite conexaoSQLite = ConexaoSQLite.getInstancia(ActivityUnidade.this);
-                // controller = new UnidadeController(conexaoSQLite);
-                try {
-                    controller.salvar(unidade);
-                    executarToast("salvar_sucesso");
-                    listarUnidades();
-                } catch (Exception e) {
-                    executarToast(e.getMessage());
-                }
-            }
-        });*/
-
-
-        // selecionar um item na lista de unidades
-       /* unidadeInterface.listViewUnidades.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-
-                final Unidade unidade = (Unidade) adapterListaUnidades.getItem(position);
-
-                AlertDialog.Builder janelaDeOpcoes = new AlertDialog.Builder(ActivityUnidade.this);
-                janelaDeOpcoes.setTitle("Opções:");
-                janelaDeOpcoes.setMessage("O que fazer com a Entidade: " + unidade.getNome());
-
-                janelaDeOpcoes.setNeutralButton("Cancelar", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
-
-                janelaDeOpcoes.setNegativeButton("Remover", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        try {
-                            controller.remover(unidade.getId());
-                            executarToast("remover_sucesso");
-                            adapterListaUnidades.remover(position);
-                        } catch (Exception e) {
-                            executarToast(e.getMessage());
-                        } finally {
-                            dialog.cancel();
-                        }
-                    }
-                });
-
-                janelaDeOpcoes.setPositiveButton("Editar", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
-
-                janelaDeOpcoes.create().show();
-            }
-        });*/
 
     }
 
@@ -133,7 +70,7 @@ public class ActivityUnidade extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         try {
-                            controller.remover(unidade.getId());
+                            controller.delete(unidade.getId());
                             listarUnidades();
                             executarToast("remover_sucesso");
                             // adapterListaUnidades.remover(position);
@@ -150,16 +87,6 @@ public class ActivityUnidade extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int id) {
 
                         setUnidadeInterface(unidade);
-
-                        /*Bundle bundleDadosUnidade = new Bundle();
-                        bundleDadosUnidade.putLong("id_unidade", unidade.getId());
-                        bundleDadosUnidade.putString("nome_unidade", unidade.getNome());
-                        bundleDadosUnidade.putString("endereco_unidade", unidade.getEndereco());
-                        bundleDadosUnidade.putString("status_unidade", unidade.getStatus().getValor());
-
-                        Intent itentEditarUnidade = new Intent(ActivityUnidade.this, ActivityEditarUnidade.class);
-                        itentEditarUnidade.putExtras(bundleDadosUnidade);
-                        startActivity(itentEditarUnidade);*/
                         dialog.cancel();
                     }
                 });
@@ -181,26 +108,19 @@ public class ActivityUnidade extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Unidade unidade = obterUnidadeDaInterface();
-                System.out.println(unidade.toString());
-                // ConexaoSQLite conexaoSQLite = ConexaoSQLite.getInstancia(ActivityUnidade.this);
-                // controller = new UnidadeController(conexaoSQLite);
+
                 try {
                     if (unidade.getId() == null) {
-                        long id = controller.salvar(unidade);
+                        long id = controller.save(unidade);
                         listarUnidades();
-                        // unidade.setId(id);
-                        // adapterListaUnidades.addItem(unidade);
                         executarToast("salvar_sucesso");
                     } else {
-                        controller.atualizar(unidade);
+                        controller.update(unidade);
                         listarUnidades();
-                        //adapterListaUnidades.remover(unidadeInterface.posicao);
-                        //adapterListaUnidades.addItem(unidade);
                         executarToast("atualizar_sucesso");
                     }
 
                     limparInterface();
-                    // listarUnidades();
                 } catch (Exception e) {
                     executarToast(e.getMessage());
                 }
@@ -216,8 +136,8 @@ public class ActivityUnidade extends AppCompatActivity {
     }
 
     private Unidade obterUnidadeDaInterface() {
-        // String resultado = unidadeInterface.editId.getText().toString();
         Long id = null;
+
         if (!unidadeInterface.editId.getText().toString().equals(""))
             id = Long.valueOf(unidadeInterface.editId.getText().toString());
 
@@ -230,7 +150,7 @@ public class ActivityUnidade extends AppCompatActivity {
     }
 
     private void listarUnidades() {
-        List<Unidade> listaDeUnidades = controller.listar();
+        List<Unidade> listaDeUnidades = controller.findAll();
         adapterListaUnidades = new AdapterListaUnidades(ActivityUnidade.this, listaDeUnidades);
         unidadeInterface.listViewUnidades.setAdapter(adapterListaUnidades);
     }
