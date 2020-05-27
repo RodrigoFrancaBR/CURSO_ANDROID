@@ -12,6 +12,9 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.List;
 
 import br.com.franca.cursoapp.R;
@@ -36,16 +39,23 @@ public class ActivityUnidade extends AppCompatActivity {
 
         buscarElementosDaInterface();
 
+        //  obter uma instacia do firebase
+        // FirebaseDatabase database = FirebaseDatabase.getInstance ();
+        // DatabaseReference myRef = database.getReference ( "mensagem" );
+        // myRef.setValue ( "Olá, mundo!" );
+
+
         // Abre conexao com o banco;
-        ConexaoSQLite conexaoSQLite = ConexaoSQLite.getInstancia(ActivityUnidade.this);
+        // ConexaoSQLite conexaoSQLite = ConexaoSQLite.getInstancia(ActivityUnidade.this);
 
-        controller = new UnidadeController(conexaoSQLite);
+        controller = new UnidadeController(FirebaseDatabase.getInstance());
+        // controller = new UnidadeController(conexaoSQLite);
 
-        listarUnidades();
+        // listarUnidades();
 
         aguardandoClickBotaoSalvar();
 
-        aguardandoSelecionarItemDaLista();
+        // aguardandoSelecionarItemDaLista();
 
        /* bean.btnCadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,12 +125,12 @@ public class ActivityUnidade extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
 
-                final Unidade unidade = (Unidade) adapterListaUnidades.getItem(position);
+                // final Unidade unidade = (Unidade) adapterListaUnidades.getItem(position);
                 unidadeInterface.posicao = position;
 
                 AlertDialog.Builder janelaDeOpcoes = new AlertDialog.Builder(ActivityUnidade.this);
                 janelaDeOpcoes.setTitle("Opções:");
-                janelaDeOpcoes.setMessage("O que fazer com a Entidade: " + unidade.getNome());
+                // janelaDeOpcoes.setMessage("O que fazer com a Entidade: " + unidade.getNome());
 
                 janelaDeOpcoes.setNeutralButton("Cancelar", new DialogInterface.OnClickListener() {
                     @Override
@@ -132,7 +142,7 @@ public class ActivityUnidade extends AppCompatActivity {
                 janelaDeOpcoes.setNegativeButton("Remover", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        try {
+                      /*  try {
                             controller.remover(unidade.getId());
                             listarUnidades();
                             executarToast("remover_sucesso");
@@ -141,7 +151,8 @@ public class ActivityUnidade extends AppCompatActivity {
                             executarToast(e.getMessage());
                         } finally {
                             dialog.cancel();
-                        }
+                        }*/
+                        dialog.cancel();
                     }
                 });
 
@@ -149,7 +160,7 @@ public class ActivityUnidade extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
 
-                        setUnidadeInterface(unidade);
+                        // setUnidadeInterface(unidade);
 
                         /*Bundle bundleDadosUnidade = new Bundle();
                         bundleDadosUnidade.putLong("id_unidade", unidade.getId());
@@ -186,18 +197,18 @@ public class ActivityUnidade extends AppCompatActivity {
                 // controller = new UnidadeController(conexaoSQLite);
                 try {
                     if (unidade.getId() == null) {
-                        long id = controller.salvar(unidade);
-                        listarUnidades();
+                        controller.salvar(unidade);
+                        // listarUnidades();
                         // unidade.setId(id);
                         // adapterListaUnidades.addItem(unidade);
                         executarToast("salvar_sucesso");
-                    } else {
+                    } /*else {
                         controller.atualizar(unidade);
                         listarUnidades();
                         //adapterListaUnidades.remover(unidadeInterface.posicao);
                         //adapterListaUnidades.addItem(unidade);
                         executarToast("atualizar_sucesso");
-                    }
+                    }*/
 
                     limparInterface();
                     // listarUnidades();
@@ -229,11 +240,11 @@ public class ActivityUnidade extends AppCompatActivity {
         );
     }
 
-    private void listarUnidades() {
+  /*  private void listarUnidades() {
         List<Unidade> listaDeUnidades = controller.listar();
         adapterListaUnidades = new AdapterListaUnidades(ActivityUnidade.this, listaDeUnidades);
         unidadeInterface.listViewUnidades.setAdapter(adapterListaUnidades);
-    }
+    }*/
 
     private void executarToast(String msg) {
         switch (msg) {

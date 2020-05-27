@@ -25,13 +25,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Grava uma mensagem no banco de dados
-        FirebaseDatabase database = FirebaseDatabase . getInstance ();
-        DatabaseReference myRef = database.getReference ( "mensagem" );
-
-        myRef.setValue ( "Olá, mundo!" );
-
-
         buscarElementosDaInterface();
 
         bean.btnCadastrarUnidade.setOnClickListener(new View.OnClickListener() {

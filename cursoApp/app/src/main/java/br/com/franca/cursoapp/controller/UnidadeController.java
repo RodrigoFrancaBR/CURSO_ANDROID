@@ -3,6 +3,9 @@ package br.com.franca.cursoapp.controller;
 
 import android.util.Log;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.List;
 
 import br.com.franca.cursoapp.dao.UnidadeDAO;
@@ -12,11 +15,15 @@ import br.com.franca.cursoapp.domain.Unidade;
 public class UnidadeController {
     private final UnidadeDAO dao;
 
-    public UnidadeController(ConexaoSQLite conexaoSQLite) {
+   /* public UnidadeController(ConexaoSQLite conexaoSQLite) {
         dao = new UnidadeDAO(conexaoSQLite);
+    }*/
+
+    public UnidadeController(FirebaseDatabase database) {
+        dao = new UnidadeDAO(database);
     }
 
-    public long salvar(Unidade unidade) throws Exception {
+    public void salvar(Unidade unidade) throws Exception {
         if (unidade == null)
             throw new Exception("entidade_null");
 
@@ -26,14 +33,14 @@ public class UnidadeController {
         if (enderecoInvalido(unidade.getEndereco()))
             throw new Exception("endereco_invalido");
 
-        return dao.salvar(unidade);
+        dao.salvar(unidade);
 
     }
 
-    public int atualizar(Unidade unidade) throws Exception {
+   /* public int atualizar(Unidade unidade) throws Exception {
         // Unidade unidadeEncontrada = validarID(unidade.getId());
         return dao.atualizar(unidade);
-    }
+    }*/
 
 //    private Unidade buscarPorId(Long id) throws Exception {
 //        /*if (id == null)
@@ -42,14 +49,14 @@ public class UnidadeController {
 //        return dao.buscarPorId(id);
 //    }
 
-    public List<Unidade> listar() {
+  /*  public List<Unidade> listar() {
         return dao.listar();
     }
 
     public void remover(Long id) throws Exception {
         // validarID(id);
         dao.remover(id);
-    }
+    }*/
 
 
     private boolean nomeInvalido(String nome) {
